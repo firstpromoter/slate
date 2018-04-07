@@ -43,7 +43,7 @@ You must replace <code>{apikey}</code> with your account API key.
 
 Our tracking API allows companies to track any type of signups, sales, cancellations and refunds for any billing provider, you are not limited to our built-in integrations with Stripe, Chargebee, Recurly and Braintree.
 
-In order to send a Tracking API call you'll need to pass the custom tracking integration ID(wid) as parameter with every call. Note: other API calls do not require this.
+For increased security, in order to send a Tracking API call you'll need to pass the custom tracking integration ID(wid) as parameter with every call. Note: other API calls do not require this.
 
 **To get your Integration ID(wid):**
 
@@ -316,3 +316,310 @@ This call will mark the customer as cancelled and will decrease the MRR generate
 | --------- | -------- | ---------------------------------------- |
 | email     | yes      | email of the lead/sign-up                |
 | uid       | no       | uid of the lead added on signup tracking |
+
+# Promoters API
+
+Promoters API endpoint allows you to manage your affiliates/promoters through API calls. The most important use case is to automatically create promoter accounts for your customers.
+
+To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
+
+## Create new promoters
+
+```shell
+curl -X POST "https://firstpromoter.com/api/v1/promoters/create"
+  -d "email=john@doe.com"
+  -d "first_name=John"
+  -d "last_name=Doe"
+  -d "cust_id=cus_sd4gh302fjlsd"
+  -d "website=https://google.com"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "id": 2348,
+  "cust_id": "cus_sd4gh302fjlsd",
+  "email": "jon@doe.com",
+  "temp_password": null,
+  "default_promotion_id": 3341,
+  "default_ref_id": "jon56",
+  "earnings_balance": null,
+  "current_balance": null,
+  "paid_balance": null,
+  "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u",
+  "profile": {
+    "id": 3390,
+    "first_name": "John",
+    "last_name": "Doe",
+    "website": "https://google.com",
+    "paypal_email": null,
+    "avatar_url": null,
+    "description": null,
+    "social_accounts": {}
+  }
+}
+```
+
+Use this endpoint to create new promoters using the API. The response will return the newly added promoter as JSON.
+
+Probably the most important value from the response is "auth_token", which is a unique key auto-generated on creation and can be used to automatically log in your promoters to their dashboard. [Learn more](https://help.firstpromoter.com/faq/how-to-embed-the-promoter-dashboard-inside-your-website-and-log-your-users-in-automatically)
+
+### HTTP Request
+
+`POST https://firstpromoter.com/api/v1/promoters/create`
+
+### Query Parameters
+
+| Parameter     | Required | Description                                                                                                                                                                                                                                                            |
+| ------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| email         | yes      | promoter's email                                                                                                                                                                                                                                                       |
+| first_name    | no       | promoter's first name                                                                                                                                                                                                                                                  |
+| last_name     | no       | promoter's last name                                                                                                                                                                                                                                                   |
+| cust_id       | no       | customer/user ID inside your application. It will be used in webhooks to identify the promoter in your system.                                                                                                                                                         |
+| ref_id        | no       | referral ID. If this is blank an ID is assigned based on the first_name.                                                                                                                                                                                               |
+| promo_code    | no       | unique promo code from your billing provider to assign to this affiliate for coupon tracking                                                                                                                                                                           |
+| campaign_id   | no       | the ID of the campaign to assign the promoter to. On the campaigns sections you can see the id as "camp_id" query parameter on "Promoter Sign Up page URL". If there is no "camp_id" it means the campaign is the default campaign and this parameter is not required. |
+| temp_password | no       | a temporary password promoters can use to log in to their dashboard if you don't use authentication tokens(auth_token) to sign promoters in automatically.                                                                                                             |
+| landing_url   | no       | you can set up a custom landing page url for this promoter. The referral id will be appended to it, unless the "url_tracking" parameter(below) is used.                                                                                                                |
+| url_tracking  | no       | enable direct url tracking feature. FirstPromoter will do the tracking based on "landing_url"(above) without requiring the referral id to be appended to the url. The "landing_url" needs to be unique for each promoter.                                              |
+| website       | no       | promoter's website                                                                                                                                                                                                                                                     |
+| paypal_email  | no       | promoter's Paypal Email address                                                                                                                                                                                                                                        |
+| avatar_url    | no       | URL of the profile picture promoters can see on their dashboard                                                                                                                                                                                                        |
+| description   | no       | A note/description to promoter                                                                                                                                                                                                                                         |
+
+## Update a promoter
+
+```shell
+curl -X PUT "https://firstpromoter.com/api/v1/promoters/update"
+  -d "cust_id=cus_sd4gh302fjlsd"
+  -d "email=john_new@email.com"
+  -d "new_ref_id=johnny"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "id": 2348,
+  "cust_id": "cus_sd4gh302fjlsd",
+  "email": "john_new@email.com",
+  "temp_password": null,
+  "default_promotion_id": 3341,
+  "default_ref_id": "johnny",
+  "earnings_balance": null,
+  "current_balance": null,
+  "paid_balance": null,
+  "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u",
+  "profile": {
+    "id": 3390,
+    "first_name": "John",
+    "last_name": "Doe",
+    "website": "https://google.com",
+    "paypal_email": null,
+    "avatar_url": null,
+    "description": null,
+    "social_accounts": {}
+  }
+}
+```
+
+You can identify promoters by: **id**, **cust_id**, **auth_token** or **ref_id**(referral id).
+You need to pass at least one of these parameters.
+
+### HTTP Request
+
+`PUT https://firstpromoter.com/api/v1/promoters/update`
+
+### Query Parameters
+
+| Parameter     | Required | Description                                                                                                                                                                                                               |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id            | no       | promoter's ID inside FirstPromoter                                                                                                                                                                                        |
+| cust_id       | no       | assigned customer/user ID                                                                                                                                                                                                 |
+| ref_id        | no       | referral ID                                                                                                                                                                                                               |
+| auth_token    | no       | authetication token generated when the promoter was created                                                                                                                                                               |
+| new_cust_id   | no       | the new customer/user ID                                                                                                                                                                                                  |
+| new_ref_id    | no       | the new referral ID                                                                                                                                                                                                       |
+| email         | no       | promoter's email                                                                                                                                                                                                          |
+| first_name    | no       | promoter's first name                                                                                                                                                                                                     |
+| last_name     | no       | promoter's last name                                                                                                                                                                                                      |
+| promo_code    | no       | unique promo code from your billing provider to assign to this affiliate for coupon tracking                                                                                                                              |
+| temp_password | no       | a temporary password promoters can use to log in to their dashboard if you don't use authentication tokens(auth_token) to sign promoters in automatically.                                                                |
+| landing_url   | no       | you can set up a custom landing page url for this promoter. The referral id will be appended to it, unless the "url_tracking" parameter(below) is used.                                                                   |
+| url_tracking  | no       | enable direct url tracking feature. FirstPromoter will do the tracking based on "landing_url"(above) without requiring the referral id to be appended to the url. The "landing_url" needs to be unique for each promoter. |
+| website       | no       | promoter's website                                                                                                                                                                                                        |
+| paypal_email  | no       | promoter's Paypal Email address                                                                                                                                                                                           |
+| avatar_url    | no       | URL of the profile picture promoters can see on their dashboard                                                                                                                                                           |
+| description   | no       | A note/description to promoter                                                                                                                                                                                            |
+
+## Show promoter details and balance
+
+```shell
+curl "https://firstpromoter.com/api/v1/promoters/show"
+  -d "cust_id=cus_sd4gh302fjlsd"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "id": 2348,
+  "cust_id": "cus_sd4gh302fjlsd",
+  "email": "john_new@email.com",
+  "temp_password": null,
+  "default_promotion_id": 3341,
+  "default_ref_id": "johnny",
+  "earnings_balance": null,
+  "current_balance": null,
+  "paid_balance": null,
+  "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u",
+  "profile": {
+    "id": 3390,
+    "first_name": "John",
+    "last_name": "Doe",
+    "website": "https://google.com",
+    "paypal_email": null,
+    "avatar_url": null,
+    "description": null,
+    "social_accounts": {}
+  }
+}
+```
+
+You can identify promoters by: **id**, **cust_id**, **auth_token** or **ref_id**(referral id).
+You need to pass at least one of these parameters.
+
+### HTTP Request
+
+`GET https://firstpromoter.com/api/v1/promoters/show`
+
+### Query Parameters
+
+| Parameter  | Required | Description                                                 |
+| ---------- | -------- | ----------------------------------------------------------- |
+| id         | no       | promoter's ID inside FirstPromoter                          |
+| cust_id    | no       | assigned customer/user ID                                   |
+| ref_id     | no       | referral ID                                                 |
+| auth_token | no       | authetication token generated when the promoter was created |
+
+## Delete a promoter
+
+```shell
+curl -X DELETE "https://firstpromoter.com/api/v1/promoters/delete"
+  -d "cust_id=cus_sd4gh302fjlsd"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "message": "Promoter removed"
+}
+```
+
+You can identify promoters by: **id**, **cust_id**, **auth_token** or **ref_id**(referral id).
+You need to pass at least one of these parameters.
+
+### HTTP Request
+
+`DELETE https://firstpromoter.com/api/v1/promoters/delete`
+
+### Query Parameters
+
+| Parameter  | Required | Description                                                 |
+| ---------- | -------- | ----------------------------------------------------------- |
+| id         | no       | promoter's ID inside FirstPromoter                          |
+| cust_id    | no       | assigned customer/user ID                                   |
+| ref_id     | no       | referral ID                                                 |
+| auth_token | no       | authetication token generated when the promoter was created |
+
+# Leads API
+
+Leads API allows you to manage the leads and customers referred by your promoters.
+
+To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
+
+## Create new promoters
+
+```shell
+curl -X POST "https://firstpromoter.com/api/v1/leads/create"
+  -d "email=jane@doe.com"
+  -d "ref_id=johnny"
+  -d "first_name=Jane"
+  -d "last_name=Doe"
+  -d "uid=cus_r43d4lg9hhsd"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "id": 6925,
+  "state": "signup",
+  "first_name": "Jane",
+  "last_name": "Doe",
+  "email": "jane@doe.com",
+  "uid": "",
+  "customer_since": null,
+  "plan_name": "",
+  "suspicion": "no_suspicion",
+  "promotion": {
+    "id": 2736,
+    "status": "offer_running",
+    "ref_id": "zt43j",
+    "promo_code": null,
+    "target_reached_at": null,
+    "promoter_id": 2747,
+    "campaign_id": 1286,
+    "referral_link": "http://test.com#_r_johnny",
+    "current_referral_reward": {
+      "id": 205,
+      "amount": 2000,
+      "type": "per_referral",
+      "unit": "cash",
+      "name": "20% recurring commission",
+      "default_promo_code": ""
+    },
+    "current_promotion_reward": null,
+    "current_target_reward": null
+  },
+  "promoter": {
+    "id": 2348,
+    "cust_id": "cus_sd4gh302fjlsd",
+    "email": "john_new@email.com",
+    "temp_password": null,
+    "default_promotion_id": 3341,
+    "default_ref_id": "johnny",
+    "earnings_balance": null,
+    "current_balance": null,
+    "paid_balance": null,
+    "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"
+  }
+}
+```
+
+With this endpoint you can assign a new lead/customer to a promotion/promoter using the API. You can find the promotion either by **ref_id** or **promotion_id**.
+
+### HTTP Request
+
+`POST https://firstpromoter.com/api/v1/leads/create`
+
+### Query Parameters
+
+| Parameter      | Required                 | Description                                                                                     |
+| -------------- | ------------------------ | ----------------------------------------------------------------------------------------------- |
+| email          | yes                      | lead's email                                                                                    |
+| promotion_id   | yes if ref_id null       | for which promotion with promotion id to assign the lead                                        |
+| ref_id         | yes if promotion_id null | for which promotion with referral id to assign the lead                                         |
+| uid            | no                       | id of the user on the blilling provider or in your database                                     |
+| first_name     | no                       | lead's first name                                                                               |
+| last_name      | no                       | lead's last name                                                                                |
+| state          | no                       | lead's state. Can be **subscriber**,**signup**,**active** or **cancelled**                      |
+| customer_since | no                       | time-date when lead converter to a customer                                                     |
+| plan_name      | no                       | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |

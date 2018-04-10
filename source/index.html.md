@@ -640,11 +640,11 @@ curl -X POST "https://firstpromoter.com/api/v1/leads/create"
 }
 ```
 
-With this endpoint you can assign a new lead/customer to a promotion/promoter using the API. You can find the promotion either by **ref_id** or **promotion_id**.
+With this endpoint you can assign a new lead/customer to a promoter using the API. You can find the promoter through its promotion either by **ref_id** or **promotion_id**.
 
 ### HTTP Request
 
-`PUT https://firstpromoter.com/api/v1/leads/update`
+`POST https://firstpromoter.com/api/v1/leads/create`
 
 ### Query Parameters
 

@@ -329,7 +329,6 @@ You must replace <code>{apikey}</code> with your account API key.
 <h2 id='tracking-leads-and-sign-ups'>Tracking leads and sign-ups</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://firstpromoter.com/api/v1/track/signup"</span>
   -d <span class="s2">"wid=b850ac4wer56hy1b5ef41"</span>
   -d <span class="s2">"email=shelley@example.com"</span>
-  -d <span class="s2">"first_name=Shelley"</span>
   -d <span class="s2">"uid=cbdemo_shelley"</span>
   -d <span class="s2">"tid=3491ff2f-7803-4467-8863-15b54frt8dyy"</span>
   -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
@@ -344,8 +343,6 @@ You must replace <code>{apikey}</code> with your account API key.
   </span><span class="s2">"lead"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">943</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signup"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shelley"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shelley@example.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cbdemo_shelley"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -396,16 +393,6 @@ You must replace <code>{apikey}</code> with your account API key.
 <td>uid</td>
 <td>no</td>
 <td>id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the &quot;uid&quot; must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn&#39;t allow pre-defined customer id, you can also pass the &quot;uid&quot; value as &quot;fp_uid&quot; in customer metadata later, when you create the customer object.</td>
-</tr>
-<tr>
-<td>first_name</td>
-<td>no</td>
-<td>you can add the full name here in case you don&#39;t have access to both first and last name separately</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>no</td>
-<td></td>
 </tr>
 <tr>
 <td>tid</td>

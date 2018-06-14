@@ -586,8 +586,6 @@ To send an API call you will require the API key found in the "Settings" page to
 curl -X POST "https://firstpromoter.com/api/v1/leads/create"
   -d "email=jane@doe.com"
   -d "ref_id=johnny"
-  -d "first_name=Jane"
-  -d "last_name=Doe"
   -d "uid=cus_r43d4lg9hhsd"
   -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
 ```
@@ -598,8 +596,6 @@ curl -X POST "https://firstpromoter.com/api/v1/leads/create"
 {
   "id": 6925,
   "state": "signup",
-  "first_name": "Jane",
-  "last_name": "Doe",
   "email": "jane@doe.com",
   "uid": "cus_r43d4lg9hhsd",
   "customer_since": null,
@@ -654,9 +650,7 @@ With this endpoint you can assign a new lead/customer to a promoter using the AP
 | promotion_id   | yes if ref_id null       | promotion id to assign the lead                                                                 |
 | ref_id         | yes if promotion_id null | referral id of the promotion to assign the lead                                                 |
 | uid            | no                       | id of the user on the blilling provider or in your database                                     |
-| first_name     | no                       | lead's first name                                                                               |
-| last_name      | no                       | lead's last name                                                                                |
-| state          | no                       | lead's state. Can be **subscriber**,**signup**,**active** or **cancelled**                      |
+| state          | no                       | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                      |
 | customer_since | no                       | time-date when lead converter to a customer                                                     |
 | plan_name      | no                       | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |
 
@@ -676,8 +670,6 @@ curl -X PUT "https://firstpromoter.com/api/v1/leads/update"
 {
   "id": 6925,
   "state": "signup",
-  "first_name": "Jane",
-  "last_name": "Doe",
   "email": "jane@doe.com",
   "uid": "cus_updated",
   "customer_since": null,
@@ -733,9 +725,7 @@ Use this to update a lead/customer details from FirstPromoter using the API. You
 | email          | yes if id and uid is null    | the lead email to update                                                                        |
 | new_uid        | no                           | the new uid                                                                                     |
 | new_email      | no                           | the new email                                                                                   |
-| first_name     | no                           | lead's first name                                                                               |
-| last_name      | no                           | lead's last name                                                                                |
-| state          | no                           | lead's state. Can be **subscriber**,**signup**,**active** or **cancelled**                      |
+| state          | no                           | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                      |
 | customer_since | no                           | time-date when lead converter to a customer                                                     |
 | plan_name      | no                           | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |
 
@@ -753,8 +743,6 @@ curl "https://firstpromoter.com/api/v1/leads/show"
 {
   "id": 6925,
   "state": "signup",
-  "first_name": "Jane",
-  "last_name": "Doe",
   "email": "jane@doe.com",
   "uid": "cus_updated",
   "customer_since": null,
@@ -916,7 +904,7 @@ Note: To assign rewards/commission for sales via the API use the <a
 href="#tracking-api">Tracking API</a>
 </aside>
 <aside class="notice">
-If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send an emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
+If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
 </aside>
 
 ### HTTP Request

@@ -1088,8 +1088,6 @@ You need to pass at least one of these parameters.</p>
 <h2 id='create-new-leads'>Create new leads</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://firstpromoter.com/api/v1/leads/create"</span>
   -d <span class="s2">"email=jane@doe.com"</span>
   -d <span class="s2">"ref_id=johnny"</span>
-  -d <span class="s2">"first_name=Jane"</span>
-  -d <span class="s2">"last_name=Doe"</span>
   -d <span class="s2">"uid=cus_r43d4lg9hhsd"</span>
   -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
 </code></pre>
@@ -1099,8 +1097,6 @@ You need to pass at least one of these parameters.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6925</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signup"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@doe.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_r43d4lg9hhsd"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1172,19 +1168,9 @@ You need to pass at least one of these parameters.</p>
 <td>id of the user on the blilling provider or in your database</td>
 </tr>
 <tr>
-<td>first_name</td>
-<td>no</td>
-<td>lead&#39;s first name</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>no</td>
-<td>lead&#39;s last name</td>
-</tr>
-<tr>
 <td>state</td>
 <td>no</td>
-<td>lead&#39;s state. Can be <strong>subscriber</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
+<td>lead&#39;s state. Can be <strong>subscribed</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
 </tr>
 <tr>
 <td>customer_since</td>
@@ -1209,8 +1195,6 @@ You need to pass at least one of these parameters.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6925</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signup"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@doe.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_updated"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1287,19 +1271,9 @@ You need to pass at least one of these parameters.</p>
 <td>the new email</td>
 </tr>
 <tr>
-<td>first_name</td>
-<td>no</td>
-<td>lead&#39;s first name</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>no</td>
-<td>lead&#39;s last name</td>
-</tr>
-<tr>
 <td>state</td>
 <td>no</td>
-<td>lead&#39;s state. Can be <strong>subscriber</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
+<td>lead&#39;s state. Can be <strong>subscribed</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
 </tr>
 <tr>
 <td>customer_since</td>
@@ -1322,8 +1296,6 @@ You need to pass at least one of these parameters.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6925</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signup"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@doe.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_updated"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
@@ -1499,7 +1471,7 @@ href="#tracking-api">Tracking API</a>
 </aside>
 
 <aside class="notice">
-If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send an emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
+If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
 </aside>
 <h3 id='http-request-14'>HTTP Request</h3>
 <p><code>POST https://firstpromoter.com/api/v1/rewards/create</code></p>

@@ -386,12 +386,12 @@ You must replace <code>{apikey}</code> with your account API key.
 </tr>
 <tr>
 <td>email</td>
-<td>yes</td>
+<td>yes if uid is null</td>
 <td>email of the lead/sign-up</td>
 </tr>
 <tr>
 <td>uid</td>
-<td>no</td>
+<td>yes if email is null</td>
 <td>id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the &quot;uid&quot; must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn&#39;t allow pre-defined customer id, you can also pass the &quot;uid&quot; value as &quot;fp_uid&quot; in customer metadata later, when you create the customer object.</td>
 </tr>
 <tr>
@@ -429,8 +429,6 @@ You must replace <code>{apikey}</code> with your account API key.
   </span><span class="s2">"lead"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">943</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shelley"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shelley@example.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cbdemo_shelley"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T14:54:32.014Z"</span><span class="p">,</span><span class="w">
@@ -479,7 +477,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 </thead><tbody>
 <tr>
 <td>email</td>
-<td>yes</td>
+<td>yes if uid is null</td>
 <td>email of the lead/sign-up</td>
 </tr>
 <tr>
@@ -494,18 +492,8 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 </tr>
 <tr>
 <td>uid</td>
-<td>no</td>
+<td>yes if email is null</td>
 <td>uid of the lead added on signup tracking</td>
-</tr>
-<tr>
-<td>first_name</td>
-<td>no</td>
-<td>update lead first name</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>no</td>
-<td>update lead last name</td>
 </tr>
 <tr>
 <td>plan</td>
@@ -542,8 +530,6 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
   </span><span class="s2">"lead"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">943</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shelley"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shelley@example.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cbdemo_shelley"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T14:54:32.014Z"</span><span class="p">,</span><span class="w">
@@ -576,7 +562,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 </thead><tbody>
 <tr>
 <td>email</td>
-<td>yes</td>
+<td>yes if uid is null</td>
 <td>email of the lead/sign-up</td>
 </tr>
 <tr>
@@ -591,7 +577,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 </tr>
 <tr>
 <td>uid</td>
-<td>no</td>
+<td>yes if email is null</td>
 <td>uid of the lead added on signup tracking</td>
 </tr>
 <tr>
@@ -616,8 +602,6 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
   </span><span class="s2">"lead"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">943</span><span class="p">,</span><span class="w">
     </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cancelled"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Shelley"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shelley@example.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cbdemo_shelley"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T14:54:32.014Z"</span><span class="p">,</span><span class="w">
@@ -650,12 +634,12 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 </thead><tbody>
 <tr>
 <td>email</td>
-<td>yes</td>
+<td>yes if uid is null</td>
 <td>email of the lead/sign-up</td>
 </tr>
 <tr>
 <td>uid</td>
-<td>no</td>
+<td>yes if email is null</td>
 <td>uid of the lead added on signup tracking</td>
 </tr>
 </tbody></table>
@@ -1136,22 +1120,22 @@ You need to pass at least one of these parameters.</p>
 </thead><tbody>
 <tr>
 <td>email</td>
-<td>yes</td>
+<td>yes if uid is null</td>
 <td>lead&#39;s email</td>
 </tr>
 <tr>
 <td>promotion_id</td>
-<td>yes if ref_id null</td>
+<td>yes if ref_id is null</td>
 <td>promotion id to assign the lead</td>
 </tr>
 <tr>
 <td>ref_id</td>
-<td>yes if promotion_id null</td>
+<td>yes if promotion_id is null</td>
 <td>referral id of the promotion to assign the lead</td>
 </tr>
 <tr>
 <td>uid</td>
-<td>no</td>
+<td>yes if email is null</td>
 <td>id of the user on the blilling provider or in your database</td>
 </tr>
 <tr>

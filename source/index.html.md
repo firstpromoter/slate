@@ -107,8 +107,8 @@ The recommended way to do this is to grab the **\_fprom_track** cookie value(whi
 | Parameter | Required                   | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | wid       | yes                        | integration id. [How to get the it?](#tracking-api)                                                                                                                                                                                                                                                                                                                                                           |
-| email     | yes                        | email of the lead/sign-up                                                                                                                                                                                                                                                                                                                                                                                     |
-| uid       | no                         | id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the "uid" must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn't allow pre-defined customer id, you can also pass the "uid" value as "fp_uid" in customer metadata later, when you create the customer object. |
+| email     | yes if uid is null         | email of the lead/sign-up                                                                                                                                                                                                                                                                                                                                                                                     |
+| uid       | yes if email is null       | id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the "uid" must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn't allow pre-defined customer id, you can also pass the "uid" value as "fp_uid" in customer metadata later, when you create the customer object. |
 | tid       | required if ref_id is null | visitor tracking id. It's set when the visitor tracking script tracks the referral visit on our system. The value is found inside "\_fprom_track" cookie. Grab that value from the cookie and pass it here to match the lead with the referral.                                                                                                                                                               |
 | ref_id    | required if tid is null    | default referral id of the promoter. Use this only when you want to assign the lead to a specific promoter.                                                                                                                                                                                                                                                                                                   |
 | ip        | no                         | IP of the visitor who generated the sign up. It's used for fraud analysis.                                                                                                                                                                                                                                                                                                                                    |
@@ -136,8 +136,6 @@ curl -X POST "https://firstpromoter.com/api/v1/track/sale"
   "lead": {
     "id": 943,
     "state": "active",
-    "first_name": "Shelley",
-    "last_name": "",
     "email": "shelley@example.com",
     "uid": "cbdemo_shelley",
     "customer_since": "2018-04-11T14:54:32.014Z",
@@ -182,17 +180,15 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 
 ### URL Parameters
 
-| Parameter  | Required | Description                                                                                                                                                                                                                   |
-| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| email      | yes      | email of the lead/sign-up                                                                                                                                                                                                     |
-| event_id   | yes      | transaction or charge ID. It's required to avoid generating duplicate commissions/rewards in case you mistakenly send the same API call multiple times.                                                                       |
-| amount     | yes      | the sale amount in cents before taxes and with discounts applied to it. It's used to calculate the commissions/rewards.                                                                                                       |
-| uid        | no       | uid of the lead added on signup tracking                                                                                                                                                                                      |
-| first_name | no       | update lead first name                                                                                                                                                                                                        |
-| last_name  | no       | update lead last name                                                                                                                                                                                                         |
-| plan       | no       | customer plan ID from the billing provider. It's used to calculate rewards in case you use plan-level rewards feature.                                                                                                        |
-| mrr        | no       | sets the Monthly Recurring Revenue generated by the customer. It's used only for calculating the MRR generated by the program, not for calculating the commissions.                                                           |
-| promo_code | no       | for promo code/coupon code tracking. If you gave a unique coupon to a promoter and you added it on his promotion, you can pass it here and it will CREATE a new lead and a sale for that promoter(if doesn't exists already). |
+| Parameter  | Required             | Description                                                                                                                                                                                                                   |
+| ---------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| email      | yes if uid is null   | email of the lead/sign-up                                                                                                                                                                                                     |
+| event_id   | yes                  | transaction or charge ID. It's required to avoid generating duplicate commissions/rewards in case you mistakenly send the same API call multiple times.                                                                       |
+| amount     | yes                  | the sale amount in cents before taxes and with discounts applied to it. It's used to calculate the commissions/rewards.                                                                                                       |
+| uid        | yes if email is null | uid of the lead added on signup tracking                                                                                                                                                                                      |
+| plan       | no                   | customer plan ID from the billing provider. It's used to calculate rewards in case you use plan-level rewards feature.                                                                                                        |
+| mrr        | no                   | sets the Monthly Recurring Revenue generated by the customer. It's used only for calculating the MRR generated by the program, not for calculating the commissions.                                                           |
+| promo_code | no                   | for promo code/coupon code tracking. If you gave a unique coupon to a promoter and you added it on his promotion, you can pass it here and it will CREATE a new lead and a sale for that promoter(if doesn't exists already). |
 
 ## Tracking refunds and negative commissions
 
@@ -217,8 +213,6 @@ curl -X POST "https://firstpromoter.com/api/v1/track/refund"
   "lead": {
     "id": 943,
     "state": "active",
-    "first_name": "Shelley",
-    "last_name": "",
     "email": "shelley@example.com",
     "uid": "cbdemo_shelley",
     "customer_since": "2018-04-11T14:54:32.014Z",
@@ -247,13 +241,13 @@ Refund call is similar with the sale call. It works the same way, just that it w
 
 ### URL Parameters
 
-| Parameter     | Required | Description                                                                                                                                                                                                                                                                                                 |
-| ------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| email         | yes      | email of the lead/sign-up                                                                                                                                                                                                                                                                                   |
-| event_id      | yes      | transaction or refund event ID. It's required to avoid generating duplicate refunds in case you mistakenly send the same API call multiple times.                                                                                                                                                           |
-| amount        | yes      | the refund amount in cents. It's used to calculate the negative commissions/rewards.                                                                                                                                                                                                                        |
-| uid           | no       | uid of the lead added on signup tracking                                                                                                                                                                                                                                                                    |
-| sale_event_id | no       | the event id of the sale for which the refund is processed. This value must match the event_id value sent in the sale tracking API call. (Note: This field is marked as optional, but if you track multiple products or change the commissions level often, it becomes required to track refunds correctly) |
+| Parameter     | Required             | Description                                                                                                                                                                                                                                                                                                 |
+| ------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| email         | yes if uid is null   | email of the lead/sign-up                                                                                                                                                                                                                                                                                   |
+| event_id      | yes                  | transaction or refund event ID. It's required to avoid generating duplicate refunds in case you mistakenly send the same API call multiple times.                                                                                                                                                           |
+| amount        | yes                  | the refund amount in cents. It's used to calculate the negative commissions/rewards.                                                                                                                                                                                                                        |
+| uid           | yes if email is null | uid of the lead added on signup tracking                                                                                                                                                                                                                                                                    |
+| sale_event_id | no                   | the event id of the sale for which the refund is processed. This value must match the event_id value sent in the sale tracking API call. (Note: This field is marked as optional, but if you track multiple products or change the commissions level often, it becomes required to track refunds correctly) |
 
 ## Tracking cancellations
 
@@ -275,8 +269,6 @@ curl -X POST "https://firstpromoter.com/api/v1/track/cancellation"
   "lead": {
     "id": 943,
     "state": "cancelled",
-    "first_name": "Shelley",
-    "last_name": "",
     "email": "shelley@example.com",
     "uid": "cbdemo_shelley",
     "customer_since": "2018-04-11T14:54:32.014Z",
@@ -305,10 +297,10 @@ This call will mark the customer as cancelled and will decrease the MRR generate
 
 ### URL Parameters
 
-| Parameter | Required | Description                              |
-| --------- | -------- | ---------------------------------------- |
-| email     | yes      | email of the lead/sign-up                |
-| uid       | no       | uid of the lead added on signup tracking |
+| Parameter | Required             | Description                              |
+| --------- | -------------------- | ---------------------------------------- |
+| email     | yes if uid is null   | email of the lead/sign-up                |
+| uid       | yes if email is null | uid of the lead added on signup tracking |
 
 # Promoters API
 
@@ -639,15 +631,15 @@ With this endpoint you can assign a new lead/customer to a promoter using the AP
 
 ### Query Parameters
 
-| Parameter      | Required                 | Description                                                                                     |
-| -------------- | ------------------------ | ----------------------------------------------------------------------------------------------- |
-| email          | yes                      | lead's email                                                                                    |
-| promotion_id   | yes if ref_id null       | promotion id to assign the lead                                                                 |
-| ref_id         | yes if promotion_id null | referral id of the promotion to assign the lead                                                 |
-| uid            | no                       | id of the user on the blilling provider or in your database                                     |
-| state          | no                       | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                      |
-| customer_since | no                       | time-date when lead converter to a customer                                                     |
-| plan_name      | no                       | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |
+| Parameter      | Required                    | Description                                                                                     |
+| -------------- | --------------------------- | ----------------------------------------------------------------------------------------------- |
+| email          | yes if uid is null          | lead's email                                                                                    |
+| promotion_id   | yes if ref_id is null       | promotion id to assign the lead                                                                 |
+| ref_id         | yes if promotion_id is null | referral id of the promotion to assign the lead                                                 |
+| uid            | yes if email is null        | id of the user on the blilling provider or in your database                                     |
+| state          | no                          | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                      |
+| customer_since | no                          | time-date when lead converter to a customer                                                     |
+| plan_name      | no                          | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |
 
 ## Modify existing lead/customer
 

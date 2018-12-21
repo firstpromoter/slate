@@ -4,8 +4,6 @@ title: API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
-
-
 search: true
 ---
 
@@ -308,6 +306,141 @@ Promoters API endpoint allows you to manage your affiliates/promoters through AP
 
 To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
 
+## List promoters
+
+```shell
+curl -X GET "https://firstpromoter.com/api/v1/promoters/list"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+[
+  {
+    "id": 2347,
+    "cust_id": "cus_s43t3fwef54",
+    "email": "jane@doe.com",
+    "temp_password": null,
+    "default_promotion_id": 3340,
+    "default_ref_id": "jane89",
+    "earnings_balance": null,
+    "current_balance": null,
+    "paid_balance": null,
+    "auth_token": "as4fsQgrgEsdg4v5oiudv72FGSryyjs345",
+    "profile": {
+      "id": 3389,
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "website": "https://apple.com",
+      "paypal_email": null,
+      "avatar_url": null,
+      "description": null,
+      "social_accounts": {}
+    },
+    "promotions": [
+      {
+        "id": 3340,
+        "status": "offer_inactive",
+        "ref_id": "jane89",
+        "promo_code": null,
+        "target_reached_at": null,
+        "promoter_id": 2347,
+        "campaign_id": 1286,
+        "referral_link": "http://test.com?fp_ref=jane89",
+        "current_referral_reward": {
+          "id": 205,
+          "amount": 2000,
+          "type": "per_referral",
+          "unit": "cash",
+          "name": "20% recurring commission",
+          "default_promo_code": ""
+        },
+        "current_promotion_reward": null,
+        "current_target_reward": null,
+        "visitors_count": 0,
+        "leads_count": 0,
+        "customers_count": 0,
+        "refunds_count": 0,
+        "cancellations_count": 0,
+        "sales_count": 0,
+        "sales_total": 0,
+        "refunds_total": 0
+      }
+    ]
+  },
+  {
+    "id": 2348,
+    "cust_id": "cus_sd4gh302fjlsd",
+    "email": "jon@doe.com",
+    "temp_password": null,
+    "default_promotion_id": 3341,
+    "default_ref_id": "jon56",
+    "earnings_balance": null,
+    "current_balance": null,
+    "paid_balance": null,
+    "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u",
+    "profile": {
+      "id": 3390,
+      "first_name": "John",
+      "last_name": "Doe",
+      "website": "https://google.com",
+      "paypal_email": null,
+      "avatar_url": null,
+      "description": null,
+      "social_accounts": {}
+    },
+    "promotions": [
+      {
+        "id": 3341,
+        "status": "offer_inactive",
+        "ref_id": "jon56",
+        "promo_code": null,
+        "target_reached_at": null,
+        "promoter_id": 2348,
+        "campaign_id": 1286,
+        "referral_link": "http://test.com?fp_ref=jon56",
+        "current_referral_reward": {
+          "id": 205,
+          "amount": 2000,
+          "type": "per_referral",
+          "unit": "cash",
+          "name": "20% recurring commission",
+          "default_promo_code": ""
+        },
+        "current_promotion_reward": null,
+        "current_target_reward": null,
+        "visitors_count": 0,
+        "leads_count": 0,
+        "customers_count": 0,
+        "refunds_count": 0,
+        "cancellations_count": 0,
+        "sales_count": 0,
+        "sales_total": 0,
+        "refunds_total": 0
+      }
+    ]
+  }
+]
+```
+
+Use this endpoint to list your promoters using the API. The response will return the promoters as JSON array.
+
+<aside class="notice">
+Pagination details are held on response headers. Add <strong>--include</strong> option on
+<strong>curl</strong> request to see the pagination details format and links to next pages.
+</aside>
+
+### HTTP Request
+
+`GET https://firstpromoter.com/api/v1/promoters/list`
+
+### Query Parameters
+
+| Parameter   | Required | Description                                         |
+| ----------- | -------- | --------------------------------------------------- |
+| campaign_id | no       | List all promoters accepted to a specific campaign. |
+
 ## Create new promoters
 
 ```shell
@@ -343,7 +476,37 @@ curl -X POST "https://firstpromoter.com/api/v1/promoters/create"
     "avatar_url": null,
     "description": null,
     "social_accounts": {}
-  }
+  },
+  "promotions": [
+    {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "jon56",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_jon56",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  ]
 }
 ```
 
@@ -412,7 +575,37 @@ curl -X PUT "https://firstpromoter.com/api/v1/promoters/update"
     "avatar_url": null,
     "description": null,
     "social_accounts": {}
-  }
+  },
+  "promotions": [
+    {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  ]
 }
 ```
 
@@ -476,7 +669,37 @@ curl "https://firstpromoter.com/api/v1/promoters/show"
     "avatar_url": null,
     "description": null,
     "social_accounts": {}
-  }
+  },
+  "promotions": [
+    {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  ]
 }
 ```
 
@@ -567,6 +790,139 @@ Leads API allows you to manage the leads and customers referred by your promoter
 
 To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
 
+## List leads and customers
+
+```shell
+curl -X GET "https://firstpromoter.com/api/v1/leads/list"
+  -d "ref_id=johnny"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+[
+  {
+    "id": 6924,
+    "state": "active",
+    "email": "mike@doe.com",
+    "uid": "cus_rxds34r9hhsd",
+    "customer_since": "2018-11-11T14:54:32.081Z",
+    "plan_name": "starter",
+    "suspicion": "no_suspicion",
+    "promotion": {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 2,
+      "customers_count": 1,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    },
+    "promoter": {
+      "id": 2348,
+      "cust_id": "cus_sd4gh302fjlsd",
+      "email": "john_new@email.com",
+      "temp_password": null,
+      "default_promotion_id": 3341,
+      "default_ref_id": "johnny",
+      "earnings_balance": null,
+      "current_balance": null,
+      "paid_balance": null,
+      "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"
+    }
+  },
+  {
+    "id": 6925,
+    "state": "signup",
+    "email": "jane@doe.com",
+    "uid": "cus_r43d4lg9hhsd",
+    "customer_since": null,
+    "plan_name": "",
+    "suspicion": "no_suspicion",
+    "promotion": {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 2,
+      "customers_count": 1,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    },
+    "promoter": {
+      "id": 2348,
+      "cust_id": "cus_sd4gh302fjlsd",
+      "email": "john_new@email.com",
+      "temp_password": null,
+      "default_promotion_id": 3341,
+      "default_ref_id": "johnny",
+      "earnings_balance": null,
+      "current_balance": null,
+      "paid_balance": null,
+      "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"
+    }
+  }
+]
+```
+
+With this endpoint you can list all the leads and customers assigned to a promotion, promoter, campaign or entire account using the API.
+
+<aside class="notice">
+Pagination details are held on response headers. Add <strong>--include</strong> option on
+<strong>curl</strong> request to see the pagination details format and links to next pages.
+</aside>
+
+### HTTP Request
+
+`GET https://firstpromoter.com/api/v1/leads/list`
+
+### Query Parameters
+
+| Parameter    | Required | Description                                                                    |
+| ------------ | -------- | ------------------------------------------------------------------------------ |
+| promotion_id | no       | list all leads and customer assigned to a promotion                            |
+| ref_id       | no       | list all leads and customer assigned to a promotion - find promotion by ref_id |
+| promoter_id  | no       | list all leads and customers assigned to a promoter                            |
+| campaign_id  | no       | list all leads and customers available to a campaign                           |
+
 ## Create new leads
 
 ```shell
@@ -589,12 +945,12 @@ curl -X POST "https://firstpromoter.com/api/v1/leads/create"
   "plan_name": "",
   "suspicion": "no_suspicion",
   "promotion": {
-    "id": 2736,
+    "id": 3341,
     "status": "offer_inactive",
     "ref_id": "johnny",
     "promo_code": null,
     "target_reached_at": null,
-    "promoter_id": 2747,
+    "promoter_id": 2348,
     "campaign_id": 1286,
     "referral_link": "http://test.com#_r_johnny",
     "current_referral_reward": {
@@ -606,7 +962,15 @@ curl -X POST "https://firstpromoter.com/api/v1/leads/create"
       "default_promo_code": ""
     },
     "current_promotion_reward": null,
-    "current_target_reward": null
+    "current_target_reward": null,
+    "visitors_count": 0,
+    "leads_count": 1,
+    "customers_count": 0,
+    "refunds_count": 0,
+    "cancellations_count": 0,
+    "sales_count": 0,
+    "sales_total": 0,
+    "refunds_total": 0
   },
   "promoter": {
     "id": 2348,
@@ -663,12 +1027,12 @@ curl -X PUT "https://firstpromoter.com/api/v1/leads/update"
   "plan_name": "new_plan",
   "suspicion": "no_suspicion",
   "promotion": {
-    "id": 2736,
+    "id": 3341,
     "status": "offer_inactive",
     "ref_id": "johnny",
     "promo_code": null,
     "target_reached_at": null,
-    "promoter_id": 2747,
+    "promoter_id": 2348,
     "campaign_id": 1286,
     "referral_link": "http://test.com#_r_johnny",
     "current_referral_reward": {
@@ -680,7 +1044,15 @@ curl -X PUT "https://firstpromoter.com/api/v1/leads/update"
       "default_promo_code": ""
     },
     "current_promotion_reward": null,
-    "current_target_reward": null
+    "current_target_reward": null,
+    "visitors_count": 0,
+    "leads_count": 1,
+    "customers_count": 0,
+    "refunds_count": 0,
+    "cancellations_count": 0,
+    "sales_count": 0,
+    "sales_total": 0,
+    "refunds_total": 0
   },
   "promoter": {
     "id": 2348,
@@ -736,12 +1108,12 @@ curl "https://firstpromoter.com/api/v1/leads/show"
   "plan_name": "new_plan",
   "suspicion": "no_suspicion",
   "promotion": {
-    "id": 2736,
+    "id": 3341,
     "status": "offer_inactive",
     "ref_id": "johnny",
     "promo_code": null,
     "target_reached_at": null,
-    "promoter_id": 2747,
+    "promoter_id": 2348,
     "campaign_id": 1286,
     "referral_link": "http://test.com#_r_johnny",
     "current_referral_reward": {
@@ -753,7 +1125,15 @@ curl "https://firstpromoter.com/api/v1/leads/show"
       "default_promo_code": ""
     },
     "current_promotion_reward": null,
-    "current_target_reward": null
+    "current_target_reward": null,
+    "visitors_count": 0,
+    "leads_count": 1,
+    "customers_count": 0,
+    "refunds_count": 0,
+    "cancellations_count": 0,
+    "sales_count": 0,
+    "sales_total": 0,
+    "refunds_total": 0
   },
   "promoter": {
     "id": 2348,
@@ -858,12 +1238,12 @@ curl -X POST "https://firstpromoter.com/api/v1/rewards/create"
     "auth_token": "YhYtn86R3QhrYAMashi4yLMHnzEuSL2r"
   },
   "promotion": {
-    "id": 2736,
+    "id": 3341,
     "status": "offer_inactive",
     "ref_id": "johnny",
     "promo_code": null,
     "target_reached_at": null,
-    "promoter_id": 2747,
+    "promoter_id": 2348,
     "campaign_id": 1286,
     "referral_link": "http://test.com#_r_johnny",
     "current_referral_reward": {
@@ -875,7 +1255,15 @@ curl -X POST "https://firstpromoter.com/api/v1/rewards/create"
       "default_promo_code": ""
     },
     "current_promotion_reward": null,
-    "current_target_reward": null
+    "current_target_reward": null,
+    "visitors_count": 0,
+    "leads_count": 0,
+    "customers_count": 0,
+    "refunds_count": 0,
+    "cancellations_count": 0,
+    "sales_count": 0,
+    "sales_total": 0,
+    "refunds_total": 0
   }
 }
 ```

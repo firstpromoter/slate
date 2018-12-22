@@ -464,7 +464,7 @@ You must replace <code>{apikey}</code> with your account API key.
 
 <p>You just need to pass the sale amount(before taxes) and we&#39;ll take care of the rest. The commissions/rewards will be calculated based on that amount and the plan id, in case you use the plan-level rewards feature.</p>
 
-<p>Using email or uid parameters we identify the lead/customer who generated the sale which also helps us determine the promoter who owns the reward/commission. The lead is added inside our system either by the client signup tracking script when the user signs up or by calling the signup API endpoint.</p>
+<p>Using email or uid parameters we identify the lead/customer who generated the sale which also helps us determine the promoter who owns the reward/commission. The lead is added inside our system either by the client signup tracking script when the user signs up or by calling the signup API endpoint. There is also the option to bypass the signup tracking by using <strong>tid</strong> or <strong>ref_id</strong> parameters which will create the lead and also assign the sale in one go.</p>
 
 <p><strong>If we don&#39;t find the lead on our system, it means that the sale is not a referral sale and you&#39;ll get a 204 response. You don&#39;t have to identify yourself which sale is from referrals and which is not, we&#39;ll take care of that.</strong></p>
 
@@ -515,6 +515,16 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 <td>promo_code</td>
 <td>no</td>
 <td>for promo code/coupon code tracking. If you gave a unique coupon to a promoter and you added it on his promotion, you can pass it here and it will CREATE a new lead and a sale for that promoter(if doesn&#39;t exists already).</td>
+</tr>
+<tr>
+<td>tid</td>
+<td>no</td>
+<td>you can avoid signup tracking call by providing the <strong>_fprom_track</strong> cookie value(visitor tracking id) read on your system</td>
+</tr>
+<tr>
+<td>ref_id</td>
+<td>no</td>
+<td>you can avoid signup tracking call by providing the <strong>ref_id</strong>(referral id) of the promoter</td>
 </tr>
 </tbody></table>
 <h2 id='tracking-refunds-and-negative-commissions'>Tracking refunds and negative commissions</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://firstpromoter.com/api/v1/track/refund"</span>

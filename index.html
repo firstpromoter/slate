@@ -494,12 +494,17 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 <tr>
 <td>amount</td>
 <td>yes</td>
-<td>the sale amount in cents before taxes and with discounts applied to it. It&#39;s used to calculate the commissions/rewards.</td>
+<td>the total sale amount in cents before taxes and with discounts applied to it. It&#39;s used to calculate the commissions/rewards.</td>
 </tr>
 <tr>
 <td>uid</td>
 <td>yes if email is null</td>
 <td>uid of the lead added on signup tracking</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>no</td>
+<td>number of subscriptions/items bought. If it&#39;s only one you can skip this parameter.</td>
 </tr>
 <tr>
 <td>plan</td>
@@ -592,6 +597,11 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 <td>the refund amount in cents. It&#39;s used to calculate the negative commissions/rewards.</td>
 </tr>
 <tr>
+<td>quantity</td>
+<td>no</td>
+<td>number of subscriptions/items refunded. If it&#39;s only one you can skip this parameter.</td>
+</tr>
+<tr>
 <td>uid</td>
 <td>yes if email is null</td>
 <td>uid of the lead added on signup tracking</td>
@@ -680,6 +690,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
     </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"as4fsQgrgEsdg4v5oiudv72FGSryyjs345"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3389</span><span class="p">,</span><span class="w">
@@ -688,7 +699,6 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
       </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://apple.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"paypal_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"social_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"promotions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -732,6 +742,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
     </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3390</span><span class="p">,</span><span class="w">
@@ -740,7 +751,6 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
       </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"paypal_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"social_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="s2">"promotions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -819,6 +829,7 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
   </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3390</span><span class="p">,</span><span class="w">
@@ -902,7 +913,7 @@ If this call is successful and you enabled "Promoter sign up accepted" emails fo
 <tr>
 <td>ref_id</td>
 <td>no</td>
-<td>referral ID. If this is blank an ID is assigned based on the first_name.</td>
+<td>referral ID. If this is blank an ID is assigned based on the first*name. Can be only lower-case letters, numbers, &quot;-&quot; and &quot;_&quot;</td>
 </tr>
 <tr>
 <td>promo_code</td>
@@ -945,9 +956,9 @@ If this call is successful and you enabled "Promoter sign up accepted" emails fo
 <td>URL of the profile picture promoters can see on their dashboard</td>
 </tr>
 <tr>
-<td>description</td>
+<td>note</td>
 <td>no</td>
-<td>A note/description to promoter</td>
+<td>A note/description of promoter</td>
 </tr>
 <tr>
 <td>skip_email_notification</td>
@@ -974,6 +985,7 @@ If this call is successful and you enabled "Promoter sign up accepted" emails fo
   </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3390</span><span class="p">,</span><span class="w">
@@ -982,7 +994,6 @@ If this call is successful and you enabled "Promoter sign up accepted" emails fo
     </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paypal_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"social_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"promotions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1057,7 +1068,7 @@ You need to pass at least one of these parameters.</p>
 <tr>
 <td>new_ref_id</td>
 <td>no</td>
-<td>the new referral ID</td>
+<td>the new referral ID. Can be only lower-case letters, numbers, &quot;-&quot; and &quot;_&quot;</td>
 </tr>
 <tr>
 <td>email</td>
@@ -1110,9 +1121,9 @@ You need to pass at least one of these parameters.</p>
 <td>URL of the profile picture promoters can see on their dashboard</td>
 </tr>
 <tr>
-<td>description</td>
+<td>note</td>
 <td>no</td>
-<td>A note/description to promoter</td>
+<td>A note/description of promoter</td>
 </tr>
 </tbody></table>
 <h2 id='show-promoter-details-and-balance'>Show promoter details and balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://firstpromoter.com/api/v1/promoters/show"</span>
@@ -1132,6 +1143,7 @@ You need to pass at least one of these parameters.</p>
   </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3390</span><span class="p">,</span><span class="w">
@@ -1140,7 +1152,6 @@ You need to pass at least one of these parameters.</p>
     </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"paypal_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"social_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"promotions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">

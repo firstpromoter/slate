@@ -271,9 +271,6 @@
                     <a href="#list-leads-and-customers" class="toc-h2 toc-link" data-title="list-leads-and-customers">List leads and customers</a>
                   </li>
                   <li>
-                    <a href="#create-new-leads" class="toc-h2 toc-link" data-title="create-new-leads">Create new leads</a>
-                  </li>
-                  <li>
                     <a href="#modify-existing-lead-customer" class="toc-h2 toc-link" data-title="modify-existing-lead-customer">Modify existing lead/customer</a>
                   </li>
                   <li>
@@ -1453,112 +1450,6 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 <td>list all leads and customers available to a campaign</td>
 </tr>
 </tbody></table>
-<h2 id='create-new-leads'>Create new leads</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://firstpromoter.com/api/v1/leads/create"</span>
-  -d <span class="s2">"email=jane@doe.com"</span>
-  -d <span class="s2">"ref_id=johnny"</span>
-  -d <span class="s2">"uid=cus_r43d4lg9hhsd"</span>
-  -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
-</code></pre>
-<blockquote>
-<p>Example response:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6925</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signup"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane@doe.com"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_r43d4lg9hhsd"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"customer_since"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"plan_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"suspicion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no_suspicion"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"promotion"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3341</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"offer_inactive"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"promo_code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"target_reached_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"promoter_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2348</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"campaign_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1286</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"referral_link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.com#_r_johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"current_referral_reward"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">205</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"per_referral"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20% recurring commission"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"default_promo_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"current_promotion_reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"current_target_reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"visitors_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"leads_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"customers_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"refunds_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cancellations_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"sales_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"sales_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"refunds_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"promoter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2348</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_sd4gh302fjlsd"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john_new@email.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"temp_password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"default_promotion_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3341</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"default_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>With this endpoint you can assign a new lead/customer to a promoter using the API. You can find the promoter through its promotion either by <strong>ref_id</strong> or <strong>promotion_id</strong>.</p>
-<h3 id='http-request-12'>HTTP Request</h3>
-<p><code>POST https://firstpromoter.com/api/v1/leads/create</code></p>
-<h3 id='query-parameters-9'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>email</td>
-<td>yes if uid is null</td>
-<td>lead&#39;s email</td>
-</tr>
-<tr>
-<td>promotion_id</td>
-<td>yes if ref_id is null</td>
-<td>promotion id to assign the lead</td>
-</tr>
-<tr>
-<td>ref_id</td>
-<td>yes if promotion_id is null</td>
-<td>referral id of the promotion to assign the lead</td>
-</tr>
-<tr>
-<td>uid</td>
-<td>yes if email is null</td>
-<td>id of the user on the blilling provider or in your database</td>
-</tr>
-<tr>
-<td>state</td>
-<td>no</td>
-<td>lead&#39;s state. Can be <strong>subscribed</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
-</tr>
-<tr>
-<td>customer_since</td>
-<td>no</td>
-<td>time-date when lead converter to a customer</td>
-</tr>
-<tr>
-<td>plan_name</td>
-<td>no</td>
-<td>id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter</td>
-</tr>
-</tbody></table>
 <h2 id='modify-existing-lead-customer'>Modify existing lead/customer</h2><pre class="highlight shell tab-shell"><code>curl -X PUT <span class="s2">"https://firstpromoter.com/api/v1/leads/update"</span>
   -d <span class="s2">"email=jane@doe.com"</span>
   -d <span class="s2">"new_uid=cus_updated"</span>
@@ -1619,9 +1510,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Use this to update a lead/customer details from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-13'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>PUT https://firstpromoter.com/api/v1/leads/update</code></p>
-<h3 id='query-parameters-10'>Query Parameters</h3>
+<h3 id='query-parameters-9'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1728,9 +1619,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Show the lead/customer details from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h3 id='http-request-13'>HTTP Request</h3>
 <p><code>GET https://firstpromoter.com/api/v1/leads/show</code></p>
-<h3 id='query-parameters-11'>Query Parameters</h3>
+<h3 id='query-parameters-10'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1766,9 +1657,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Remove a lead/customer from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-15'>HTTP Request</h3>
+<h3 id='http-request-14'>HTTP Request</h3>
 <p><code>DELETE https://firstpromoter.com/api/v1/leads/delete</code></p>
-<h3 id='query-parameters-12'>Query Parameters</h3>
+<h3 id='query-parameters-11'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1873,9 +1764,9 @@ href="#tracking-api">Tracking API</a>
 <aside class="notice">
 If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
 </aside>
-<h3 id='http-request-16'>HTTP Request</h3>
+<h3 id='http-request-15'>HTTP Request</h3>
 <p><code>POST https://firstpromoter.com/api/v1/rewards/create</code></p>
-<h3 id='query-parameters-13'>Query Parameters</h3>
+<h3 id='query-parameters-12'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>

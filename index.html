@@ -257,6 +257,9 @@
                     <a href="#show-promoter-details-and-balance" class="toc-h2 toc-link" data-title="show-promoter-details-and-balance">Show promoter details and balance</a>
                   </li>
                   <li>
+                    <a href="#move-switch-a-promoter-from-one-campaign-to-another" class="toc-h2 toc-link" data-title="move-switch-a-promoter-from-one-campaign-to-another">Move/switch a promoter from one campaign to another</a>
+                  </li>
+                  <li>
                     <a href="#reset-promoter-39-s-authentication-token" class="toc-h2 toc-link" data-title="reset-promoter-s-authentication-token">Reset promoter's authentication token</a>
                   </li>
                   <li>
@@ -423,6 +426,7 @@ You must replace <code>{apikey}</code> with your account API key.
   -d <span class="s2">"wid=b850ac4wer56hy1b5ef41"</span>
   -d <span class="s2">"email=shelley@example.com"</span>
   -d <span class="s2">"uid=cbdemo_shelley"</span>
+  -d <span class="s2">"currency=USD"</span>
   -d <span class="s2">"event_id=9856044"</span>
   -d <span class="s2">"plan=monthly-starter"</span>
   -d <span class="s2">"amount=6000"</span>
@@ -513,6 +517,11 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 <td>plan</td>
 <td>no</td>
 <td>customer plan ID from the billing provider. It&#39;s used to calculate rewards in case you use plan-level rewards feature.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td>this field is only required if the currency of the sale is not the same with the one set on FirstPromoter settings. We&#39;ll automatically convert the amount from this currency to the default one set on your FirstPromoter account.</td>
 </tr>
 <tr>
 <td>mrr</td>
@@ -1189,7 +1198,7 @@ You need to pass at least one of these parameters.</p>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>You can identify promoters by: <strong>id</strong>, <strong>cust_id</strong>, <strong>auth_token</strong> or <strong>ref_id</strong>(referral id).
+<p>You can identify promoters by: <strong>id</strong>, <strong>cust_id</strong>, <strong>auth_token</strong>, <strong>promoter_email</strong> or <strong>ref_id</strong>(referral id).
 You need to pass at least one of these parameters.</p>
 <h3 id='http-request-8'>HTTP Request</h3>
 <p><code>GET https://firstpromoter.com/api/v1/promoters/show</code></p>
@@ -1217,9 +1226,126 @@ You need to pass at least one of these parameters.</p>
 <td>referral ID</td>
 </tr>
 <tr>
+<td>promoter_email</td>
+<td>no</td>
+<td>promoter&#39;s email</td>
+</tr>
+<tr>
 <td>auth_token</td>
 <td>no</td>
 <td>authetication token generated when the promoter was created</td>
+</tr>
+</tbody></table>
+<h2 id='move-switch-a-promoter-from-one-campaign-to-another'>Move/switch a promoter from one campaign to another</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://firstpromoter.com/api/v1/promoters/move_to_campaign"</span>
+  -d <span class="s2">"cust_id=cus_sd4gh302fjlsd"</span>
+  -d <span class="s2">"destination_campaign_id=5399"</span>
+  -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2348</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_sd4gh302fjlsd"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john_new@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"temp_password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"default_promotion_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3341</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"default_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"profile"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3390</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"website"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"paypal_email"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"avatar_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"social_accounts"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"promotions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3342</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"offer_inactive"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"promo_code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"target_reached_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"promoter_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2348</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"campaign_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5399</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"referral_link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.com#_r_johnny"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"current_referral_reward"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">206</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"per_of_sale"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"per_referral"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30% recurring commission"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_promo_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"current_promotion_reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"current_target_reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"visitors_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"leads_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"customers_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"refunds_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cancellations_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"sales_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"sales_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"refunds_total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will change the campaign of the promoter with another one, keeping the referral id the same(affiliate
+won&#39;t need to update the referral link). It&#39;s the same function to move the promoter to another campaign from the UI.
+More details of how it works <a href="https://help.firstpromoter.com/en/articles/2509650-moving-promoters-from-one-campaign-to-another">here</a>.</p>
+
+<p>You can identify promoters by: <strong>id</strong>, <strong>cust_id</strong>, <strong>auth_token</strong>, <strong>promoter_email</strong> or <strong>ref_id</strong>(referral id).</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>GET https://firstpromoter.com/api/v1/promoters/move_to_campaign</code></p>
+<h3 id='query-parameters-6'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>no</td>
+<td>promoter&#39;s ID inside FirstPromoter</td>
+</tr>
+<tr>
+<td>cust_id</td>
+<td>no</td>
+<td>assigned customer/user ID</td>
+</tr>
+<tr>
+<td>ref_id</td>
+<td>no</td>
+<td>referral ID</td>
+</tr>
+<tr>
+<td>promoter_email</td>
+<td>no</td>
+<td>promoter&#39;s email</td>
+</tr>
+<tr>
+<td>auth_token</td>
+<td>no</td>
+<td>authetication token generated when the promoter was created</td>
+</tr>
+<tr>
+<td>destination_campaign_id</td>
+<td>yes</td>
+<td>the id of the campaign to switch/move to. It can be found on the url bar when editing the campaign</td>
+</tr>
+<tr>
+<td>source_campaign_id</td>
+<td>no</td>
+<td>only needed if the promoter is added to multiple campaigns. You can use this paramenter to specify which campaign to change. If none is specified if will use as source the default campaign.</td>
 </tr>
 </tbody></table>
 <h2 id='reset-promoter-39-s-authentication-token'>Reset promoter&#39;s authentication token</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://firstpromoter.com/api/v1/promoters/show"</span>
@@ -1237,9 +1363,9 @@ You need to pass at least one of these parameters.</p>
 
 <p>You can identify promoters by: <strong>id</strong>, <strong>cust_id</strong> or <strong>auth_token</strong>...only one
 required.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>PUT https://firstpromoter.com/api/v1/promoters/refresh_token</code></p>
-<h3 id='query-parameters-6'>Query Parameters</h3>
+<h3 id='query-parameters-7'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1276,9 +1402,9 @@ required.</p>
 </span></code></pre>
 <p>You can identify promoters by: <strong>id</strong>, <strong>cust_id</strong>, <strong>auth_token</strong> or <strong>ref_id</strong>(referral id).
 You need to pass at least one of these parameters.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>DELETE https://firstpromoter.com/api/v1/promoters/delete</code></p>
-<h3 id='query-parameters-7'>Query Parameters</h3>
+<h3 id='query-parameters-8'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1425,9 +1551,9 @@ You need to pass at least one of these parameters.</p>
 Pagination details are held on response headers. Add <strong>--include</strong> option on
 <strong>curl</strong> request to see the pagination details format and links to next pages.
 </aside>
-<h3 id='http-request-11'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>GET https://firstpromoter.com/api/v1/leads/list</code></p>
-<h3 id='query-parameters-8'>Query Parameters</h3>
+<h3 id='query-parameters-9'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1516,9 +1642,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Use this to update a lead/customer details from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-12'>HTTP Request</h3>
+<h3 id='http-request-13'>HTTP Request</h3>
 <p><code>PUT https://firstpromoter.com/api/v1/leads/update</code></p>
-<h3 id='query-parameters-9'>Query Parameters</h3>
+<h3 id='query-parameters-10'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1625,9 +1751,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Show the lead/customer details from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-13'>HTTP Request</h3>
+<h3 id='http-request-14'>HTTP Request</h3>
 <p><code>GET https://firstpromoter.com/api/v1/leads/show</code></p>
-<h3 id='query-parameters-10'>Query Parameters</h3>
+<h3 id='query-parameters-11'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1663,9 +1789,9 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Remove a lead/customer from FirstPromoter using the API. You can find the lead either by <strong>id</strong>, <strong>uid</strong> or <strong>email</strong>.</p>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h3 id='http-request-15'>HTTP Request</h3>
 <p><code>DELETE https://firstpromoter.com/api/v1/leads/delete</code></p>
-<h3 id='query-parameters-11'>Query Parameters</h3>
+<h3 id='query-parameters-12'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1770,9 +1896,9 @@ href="#tracking-api">Tracking API</a>
 <aside class="notice">
 If this call is successful and you enabled "Promoter gets a new commission/reward" emails for the campaign, it will send emails to the promoter. To skip the emails, set the <strong>skip_email_notification</strong> parameter to "true".
 </aside>
-<h3 id='http-request-15'>HTTP Request</h3>
+<h3 id='http-request-16'>HTTP Request</h3>
 <p><code>POST https://firstpromoter.com/api/v1/rewards/create</code></p>
-<h3 id='query-parameters-12'>Query Parameters</h3>
+<h3 id='query-parameters-13'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>

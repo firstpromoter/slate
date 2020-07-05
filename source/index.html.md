@@ -815,7 +815,7 @@ You can identify promoters by: **id**, **cust_id**, **auth_token**, **promoter_e
 | promoter_email     | no  | promoter's email                                          |
 | auth_token | no       | authetication token generated when the promoter was created |
 | destination_campaign_id | yes  | the id of the campaign to switch/move to. It can be found on the url bar when editing the campaign |
-| source_campaign_id | no  | only needed if the promoter is added to multiple campaigns. You can use this paramenter to specify which campaign to change. If none is specified if will use as source the default campaign. |
+| source_campaign_id | no  | only needed if the promoter is added to multiple campaigns. You can use this parameter to specify which campaign to change. If none is specified if will use as source the default campaign. |
 ## Reset promoter's authentication token
 
 ```shell

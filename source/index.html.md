@@ -1099,6 +1099,7 @@ Use this to update a lead/customer details from FirstPromoter using the API. You
 | email          | yes if id and uid is null    | the lead email to update                                                                        |
 | new_uid        | no                           | the new uid                                                                                     |
 | new_email      | no                           | the new email                                                                                   |
+| new_ref_id     | no                           | if you want to move the lead or customer to another promoter, you can enter the referral id of the new promotion |
 | state          | no                           | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                      |
 | customer_since | no                           | time-date when lead converter to a customer                                                     |
 | plan_name      | no                           | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter |

@@ -39,19 +39,10 @@ You must replace <code>{apikey}</code> with your account API key.
 
 Our tracking API allows companies to track any type of signups, sales, cancellations and refunds for any billing provider, you are not limited to our built-in integrations with Stripe, Chargebee, Recurly and Braintree.
 
-For increased security, in order to send a Tracking API call you'll need to pass the custom tracking integration ID(wid) as parameter with every call. Note: other API calls do not require this.
-
-**To get your Integration ID(wid):**
-
-1. click "Settings" button from the top bar
-2. click on "Integrations" button
-3. click on "Setup" button on the "Tracking API" integration
-
 ## Tracking leads and sign-ups
 
 ```shell
 curl -X POST "https://firstpromoter.com/api/v1/track/signup"
-  -d "wid=b850ac4wer56hy1b5ef41"
   -d "email=shelley@example.com"
   -d "event_id=1001"
   -d "uid=cbdemo_shelley"
@@ -105,7 +96,6 @@ The recommended way to do this is to grab the **\_fprom_track** cookie value(whi
 
 | Parameter | Required                   | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| wid       | yes                        | integration id. [How to get the it?](#tracking-api)                                                                                                                                                                                                                                                                                                                                                           |
 | event_id  | yes                        | signup event ID. It's required to avoid generating duplicate signup events in case you mistakenly send the same API call multiple times.                                                                                                                                                                                                                                                                      |
 | email     | yes if uid is null         | email of the lead/sign-up                                                                                                                                                                                                                                                                                                                                                                                     |
 | uid       | yes if email is null       | id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the "uid" must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn't allow pre-defined customer id, you can also pass the "uid" value as "fp_uid" in customer metadata later, when you create the customer object. |
@@ -117,7 +107,6 @@ The recommended way to do this is to grab the **\_fprom_track** cookie value(whi
 
 ```shell
 curl -X POST "https://firstpromoter.com/api/v1/track/sale"
-  -d "wid=b850ac4wer56hy1b5ef41"
   -d "email=shelley@example.com"
   -d "uid=cbdemo_shelley"
   -d "currency=USD"
@@ -199,7 +188,6 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 
 ```shell
 curl -X POST "https://firstpromoter.com/api/v1/track/refund"
-  -d "wid=b850ac4wer56hy1b5ef41"
   -d "email=shelley@example.com"
   -d "uid=cbdemo_shelley"
   -d "event_id=4567044"
@@ -259,7 +247,6 @@ Refund call is similar with the sale call. It works the same way, just that it w
 
 ```shell
 curl -X POST "https://firstpromoter.com/api/v1/track/cancellation"
-  -d "wid=b850ac4wer56hy1b5ef41"
   -d "email=shelley@example.com"
   -d "uid=cbdemo_shelley"
   -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
@@ -732,7 +719,7 @@ You need to pass at least one of these parameters.
 ## Move/switch a promoter from one campaign to another
 
 ```shell
-curl "https://firstpromoter.com/api/v1/promoters/move_to_campaign"
+curl -X POST "https://firstpromoter.com/api/v1/promoters/move_to_campaign"
   -d "cust_id=cus_sd4gh302fjlsd"
   -d "destination_campaign_id=5399"
   -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
@@ -803,7 +790,7 @@ You can identify promoters by: **id**, **cust_id**, **auth_token**, **promoter_e
 
 ### HTTP Request
 
-`GET https://firstpromoter.com/api/v1/promoters/move_to_campaign`
+`POST https://firstpromoter.com/api/v1/promoters/move_to_campaign`
 
 ### Query Parameters
 
@@ -816,6 +803,120 @@ You can identify promoters by: **id**, **cust_id**, **auth_token**, **promoter_e
 | auth_token              | no       | authetication token generated when the promoter was created                                                                                                                                  |
 | destination_campaign_id | yes      | the id of the campaign to switch/move to. It can be found on the url bar when editing the campaign                                                                                           |
 | source_campaign_id      | no       | only needed if the promoter is added to multiple campaigns. You can use this parameter to specify which campaign to change. If none is specified if will use as source the default campaign. |
+
+## Add a promoter to a campaign
+
+```shell
+curl -X POST "https://firstpromoter.com/api/v1/promoters/add_to_campaign"
+  -d "cust_id=cus_sd4gh302fjlsd"
+  -d "campaign_id=5399"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+  "id": 2348,
+  "cust_id": "cus_sd4gh302fjlsd",
+  "email": "john_new@email.com",
+  "temp_password": null,
+  "default_promotion_id": 3341,
+  "default_ref_id": "johnny",
+  "earnings_balance": null,
+  "current_balance": null,
+  "paid_balance": null,
+  "note": null,
+  "auth_token": "QvpsK_rzpzjYCBxfbATV8ubffmYDUf6u",
+  "profile": {
+    "id": 3390,
+    "first_name": "John",
+    "last_name": "Doe",
+    "website": "https://google.com",
+    "paypal_email": null,
+    "avatar_url": null,
+    "social_accounts": {}
+  },
+  "promotions": [
+    {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    },
+    {
+      "id": 3342,
+      "status": "offer_inactive",
+      "ref_id": "johny23",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 5399,
+      "referral_link": "http://test.com#_r_johnny23",
+      "current_referral_reward": {
+        "id": 206,
+        "per_of_sale": 30,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "30% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  ]
+}
+```
+
+Use this endpoint to add a promoter to another campaign. Your promoter will have multiple campaigns to promoter, each
+campaign with its own promotion, referral link and referral id.
+
+You can identify promoters by: **id**, **cust_id**, **auth_token**, **promoter_email** or **ref_id**(referral id).
+
+### HTTP Request
+
+`POST https://firstpromoter.com/api/v1/promoters/add_to_campaign`
+
+### Query Parameters
+
+| Parameter      | Required | Description                                                 |
+| -------------- | -------- | ----------------------------------------------------------- |
+| id             | no       | promoter's ID inside FirstPromoter                          |
+| cust_id        | no       | assigned customer/user ID                                   |
+| ref_id         | no       | referral ID                                                 |
+| promoter_email | no       | promoter's email                                            |
+| auth_token     | no       | authetication token generated when the promoter was created |
+| campaign_id    | yes      | the id of the campaign you want to add to the promoter      |
 
 ## Reset promoter's authentication token
 
@@ -1213,12 +1314,146 @@ Remove a lead/customer from FirstPromoter using the API. You can find the lead e
 
 # Rewards API
 
-Rewards API allows you to create and assign custom rewards to promoters. It's
-very helpful to create a custom referral program. For
-example you can reward your customers for doing certain actions inside your
+Rewards API allows you to manage the rewards of your promoters. It's
+very helpful to create a custom referral program. For example you can reward your customers for doing certain actions inside your
 application.
 
 To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
+
+## List rewards and commissions
+
+```shell
+curl -X GET "https://firstpromoter.com/api/v1/rewards/list"
+  -d "ref_id=johnny"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+[
+  {
+    "id": 6981,
+    "status": "approved",
+    "amount": 10,
+    "unit": "points",
+    "conversion_ampunt": null,
+    "event_id": null,
+    "promoter": {
+      "id": 2348,
+      "cust_id": "cus_sd4gh302fjlsd",
+      "email": "john_new@email.com",
+      "temp_password": null,
+      "default_promotion_id": 3341,
+      "default_ref_id": "johnny",
+      "earnings_balance": {
+        "points": 10
+      },
+      "current_balance": {
+        "points": 10
+      },
+      "paid_balance": null,
+      "auth_token": "YhYtn86R3QhrYAMashi4yLMHnzEuSL2r"
+    },
+    "promotion": {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  },
+  {
+    "id": 6982,
+    "status": "denied",
+    "amount": 10000,
+    "event_id": "in_Xhf4Htyha3yGDd",
+    "conversion_amount": 50000,
+    "unit": "cash",
+    "promoter": {
+      "id": 2348,
+      "cust_id": "cus_sd4gh302fjlsd",
+      "email": "john_new@email.com",
+      "temp_password": null,
+      "default_promotion_id": 3341,
+      "default_ref_id": "johnny",
+      "earnings_balance": null,
+      "current_balance": null,
+      "paid_balance": null,
+      "auth_token": "YhYtn86R3QhrYAMashi4yLMHnzEuSL2r"
+    },
+    "promotion": {
+      "id": 3341,
+      "status": "offer_inactive",
+      "ref_id": "johnny",
+      "promo_code": null,
+      "target_reached_at": null,
+      "promoter_id": 2348,
+      "campaign_id": 1286,
+      "referral_link": "http://test.com#_r_johnny",
+      "current_referral_reward": {
+        "id": 205,
+        "amount": 2000,
+        "type": "per_referral",
+        "unit": "cash",
+        "name": "20% recurring commission",
+        "default_promo_code": ""
+      },
+      "current_promotion_reward": null,
+      "current_target_reward": null,
+      "visitors_count": 0,
+      "leads_count": 0,
+      "customers_count": 0,
+      "refunds_count": 0,
+      "cancellations_count": 0,
+      "sales_count": 0,
+      "sales_total": 0,
+      "refunds_total": 0
+    }
+  }
+]
+```
+
+With this endpoint you can list all rewards and commissions assigned to a promotion, promoter, campaign or entire account using the API.
+
+<aside class="notice">
+Pagination details are held on response headers. Add <strong>--include</strong> option on
+<strong>curl</strong> request to see the pagination details format and links to next pages.
+</aside>
+
+### HTTP Request
+
+`GET https://firstpromoter.com/api/v1/rewards/list`
+
+### Query Parameters
+
+| Parameter    | Required | Description                                                                         |
+| ------------ | -------- | ----------------------------------------------------------------------------------- |
+| promotion_id | no       | list all rewards and commissions assigned to a promotion                            |
+| ref_id       | no       | list all rewards and commissions assigned to a promotion - find promotion by ref_id |
+| promoter_id  | no       | list all rewards and commissions assigned to a promoter                             |
+| campaign_id  | no       | list all rewards and commissions available to a campaign                            |
 
 ## Create new reward
 
@@ -1238,6 +1473,8 @@ curl -X POST "https://firstpromoter.com/api/v1/rewards/create"
   "status": "approved",
   "amount": 10,
   "unit": "points",
+  "conversion_ampunt": null,
+  "event_id": null,
   "promoter": {
     "id": 2348,
     "cust_id": "cus_sd4gh302fjlsd",
@@ -1333,6 +1570,8 @@ curl -X PUT "https://firstpromoter.com/api/v1/rewards/update"
   "id": 6982,
   "status": "denied",
   "amount": 10000,
+  "event_id": "in_Xhf4Htyha3yGDd",
+  "conversion_amount": 50000,
   "unit": "cash",
   "promoter": {
     "id": 2348,

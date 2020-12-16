@@ -1646,8 +1646,7 @@ To send an API call you will require the API key found in the "Settings" page to
 
 ```shell
 curl -X GET "https://firstpromoter.com/api/v1/payouts/list"
-  -d "promoter_id=1942345"
-  -d "status=pending"
+  -d "campaign_id=1286"
   -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
 ```
 

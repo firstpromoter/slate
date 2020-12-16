@@ -1202,7 +1202,7 @@ Use this to update a lead/customer details from FirstPromoter using the API. You
 | new_uid        | no                           | the new uid                                                                                                      |
 | new_email      | no                           | the new email                                                                                                    |
 | new_ref_id     | no                           | if you want to move the lead or customer to another promoter, you can enter the referral id of the new promotion |
-| state          | no                           | lead's state. Can be **subscribed**,**signup**,**active** or **cancelled**                                       |
+| state          | no                           | lead's state. Can be **subscribed**,**signup**,**active**,**denied** or **cancelled**                            |
 | customer_since | no                           | time-date when lead converter to a customer                                                                      |
 | plan_name      | no                           | id of the plan the customer was assigned to. Needs to match with the plans set on FirstPromoter                  |
 
@@ -1635,3 +1635,189 @@ charge id.
 | id        | yes if event_id is null | id of the reward inside FirstPromoter                                    |
 | event_id  | yes if id is null       | id of the event that generated the reward                                |
 | status    | no                      | new status of the reward. Can be **approved**, **pending** or **denied** |
+
+# Payouts API
+
+Payouts API lets you to list and change the payouts status of your promoters.
+
+To send an API call you will require the API key found in the "Settings" page to be added in the 'x-api-key' header.
+
+## List payouts
+
+```shell
+curl -X GET "https://firstpromoter.com/api/v1/payouts/list"
+  -d "promoter_id=1942345"
+  -d "status=pending"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+[
+{
+    "id": 78631,
+    "status": "pending",
+    "amount": 2000,
+    "date_paid": null,
+    "due_date": null,
+    "unit": "cash",
+    "created_at": "2020-12-01T00:16:13.390Z",
+    "reward": null,
+    "promoter": {
+        "id": 2348,
+        "cust_id": "cus_sd4gh302fjlsd",
+        "email": "john_new@email.com",
+        "temp_password": null,
+        "default_promotion_id": 3341,
+        "default_ref_id": "johnny",
+        "auth_token": "YhYtn86R3QhrYAMashi4yLMHnzEuSL2r"
+        "note": null,
+        "earnings_balance": {
+            "cash": 22000
+        },
+        "current_balance": {
+            "cash": 22000
+        },
+        "pending_balance": {
+            "cash": 2000
+        },
+        "paid_balance": null
+    },
+    "campaign": {
+        "id": 1286,
+        "name": "Affiliates",
+        "landing_url": "http://test.com/",
+        "description": "",
+        "private": false,
+        "color": "#00bcd4",
+        "default_webhook_url": "",
+        "auto_approve_rewards": true,
+        "auto_approve_promoters": false
+    }
+},
+{
+    "id": 78632,
+    "status": "completed",
+    "amount": 5000,
+    "date_paid": null,
+    "due_date": null,
+    "unit": "cash",
+    "created_at": "2020-10-01T20:16:13.390Z",
+    "reward": null,
+    "promoter": {
+        "id": 2350,
+        "cust_id": "",
+        "email": "amber@email.com",
+        "temp_password": null,
+        "default_promotion_id": 3371,
+        "default_ref_id": "amber",
+        "auth_token": "YhYtn86R34rfdk5j234adfsfa35EuSL2r"
+        "note": null,
+        "earnings_balance": {
+            "cash": 5000
+        },
+        "current_balance": null,
+        "paid_balance": {
+            "cash": 5000
+        },
+    },
+    "campaign": {
+        "id": 1286,
+        "name": "Affiliates",
+        "landing_url": "http://test.com/",
+        "description": "",
+        "private": false,
+        "color": "#00bcd4",
+        "default_webhook_url": "",
+        "auto_approve_rewards": true,
+        "auto_approve_promoters": false
+    }
+}
+]
+```
+
+With this endpoint you can list all payouts of a promoter, campaign or entire account using the API.
+
+<aside class="notice">
+Pagination details are held on response headers. Add <strong>--include</strong> option on
+<strong>curl</strong> request to see the pagination details format and links to next pages.
+</aside>
+
+### HTTP Request
+
+`GET https://firstpromoter.com/api/v1/payouts/list`
+
+### Query Parameters
+
+| Parameter   | Required | Description                                                                      |
+| ----------- | -------- | -------------------------------------------------------------------------------- |
+| promoter_id | no       | list all payouts assigned to a promoter                                          |
+| campaign_id | no       | list all payouts of a campaign                                                   |
+| status      | no       | filter payouts by status. Status can be **pending**,**processing**,**completed** |
+
+## Change payouts status
+
+```shell
+curl -X PUT "https://firstpromoter.com/api/v1/payouts/update"
+  -d "id=78632"
+  -d "status=completed"
+  -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
+```
+
+> Example response:
+
+```json
+{
+    "id": 78632,
+    "status": "completed",
+    "amount": 5000,
+    "date_paid": null,
+    "due_date": null,
+    "unit": "cash",
+    "created_at": "2020-10-01T20:16:13.390Z",
+    "reward": null,
+    "promoter": {
+        "id": 2350,
+        "cust_id": "",
+        "email": "amber@email.com",
+        "temp_password": null,
+        "default_promotion_id": 3371,
+        "default_ref_id": "amber",
+        "auth_token": "YhYtn86R34rfdk5j234adfsfa35EuSL2r"
+        "note": null,
+        "earnings_balance": {
+            "cash": 5000
+        },
+        "current_balance": null,
+        "paid_balance": {
+            "cash": 5000
+        },
+    },
+    "campaign": {
+        "id": 1286,
+        "name": "Affiliates",
+        "landing_url": "http://test.com/",
+        "description": "",
+        "private": false,
+        "color": "#00bcd4",
+        "default_webhook_url": "",
+        "auto_approve_rewards": true,
+        "auto_approve_promoters": false
+    }
+}
+```
+
+This call allows you to change the status of the payout. For ex. you can mark the payout as completed once the payout
+is paid.
+
+### HTTP Request
+
+`PUT https://firstpromoter.com/api/v1/payouts/update`
+
+### Query Parameters
+
+| Parameter | Required | Description                                                                   |
+| --------- | -------- | ----------------------------------------------------------------------------- |
+| id        | yes      | list all payouts assigned to a promoter                                       |
+| status    | no       | the new payout status. Status can be **pending**,**processing**,**completed** |

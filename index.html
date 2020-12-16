@@ -301,6 +301,17 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#payouts-api" class="toc-h1 toc-link" data-title="payouts-api">Payouts API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#list-payouts" class="toc-h2 toc-link" data-title="list-payouts">List payouts</a>
+                  </li>
+                  <li>
+                    <a href="#change-payouts-status" class="toc-h2 toc-link" data-title="change-payouts-status">Change payouts status</a>
+                  </li>
+              </ul>
+          </li>
       </div>
     </div>
     <div class="page-wrapper">
@@ -1809,7 +1820,7 @@ Pagination details are held on response headers. Add <strong>--include</strong> 
 <tr>
 <td>state</td>
 <td>no</td>
-<td>lead&#39;s state. Can be <strong>subscribed</strong>,<strong>signup</strong>,<strong>active</strong> or <strong>cancelled</strong></td>
+<td>lead&#39;s state. Can be <strong>subscribed</strong>,<strong>signup</strong>,<strong>active</strong>,<strong>denied</strong> or <strong>cancelled</strong></td>
 </tr>
 <tr>
 <td>customer_since</td>
@@ -2317,6 +2328,202 @@ charge id.
 <td>status</td>
 <td>no</td>
 <td>new status of the reward. Can be <strong>approved</strong>, <strong>pending</strong> or <strong>denied</strong></td>
+</tr>
+</tbody></table>
+<h1 id='payouts-api'>Payouts API</h1>
+<p>Payouts API lets you to list and change the payouts status of your promoters.</p>
+
+<p>To send an API call you will require the API key found in the &quot;Settings&quot; page to be added in the &#39;x-api-key&#39; header.</p>
+<h2 id='list-payouts'>List payouts</h2><pre class="highlight shell tab-shell"><code>curl -X GET <span class="s2">"https://firstpromoter.com/api/v1/payouts/list"</span>
+  -d <span class="s2">"promoter_id=1942345"</span>
+  -d <span class="s2">"status=pending"</span>
+  -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">78631</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"due_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-12-01T00:16:13.390Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"promoter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2348</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cus_sd4gh302fjlsd"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john_new@email.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"temp_password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_promotion_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3341</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YhYtn86R3QhrYAMashi4yLMHnzEuSL2r"</span><span class="w">
+        </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">22000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">22000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"pending_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"campaign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1286</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Affiliates"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"landing_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.com/"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#00bcd4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_webhook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_rewards"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_promoters"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">78632</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"due_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-10-01T20:16:13.390Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"promoter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2350</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amber@email.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"temp_password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_promotion_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3371</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amber"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YhYtn86R34rfdk5j234adfsfa35EuSL2r"</span><span class="w">
+        </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"campaign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1286</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Affiliates"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"landing_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.com/"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#00bcd4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_webhook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_rewards"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_promoters"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>With this endpoint you can list all payouts of a promoter, campaign or entire account using the API.</p>
+
+<aside class="notice">
+Pagination details are held on response headers. Add <strong>--include</strong> option on
+<strong>curl</strong> request to see the pagination details format and links to next pages.
+</aside>
+<h3 id='http-request-20'>HTTP Request</h3>
+<p><code>GET https://firstpromoter.com/api/v1/payouts/list</code></p>
+<h3 id='query-parameters-17'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>promoter_id</td>
+<td>no</td>
+<td>list all payouts assigned to a promoter</td>
+</tr>
+<tr>
+<td>campaign_id</td>
+<td>no</td>
+<td>list all payouts of a campaign</td>
+</tr>
+<tr>
+<td>status</td>
+<td>no</td>
+<td>filter payouts by status. Status can be <strong>pending</strong>,<strong>processing</strong>,<strong>completed</strong></td>
+</tr>
+</tbody></table>
+<h2 id='change-payouts-status'>Change payouts status</h2><pre class="highlight shell tab-shell"><code>curl -X PUT <span class="s2">"https://firstpromoter.com/api/v1/payouts/update"</span>
+  -d <span class="s2">"id=78632"</span>
+  -d <span class="s2">"status=completed"</span>
+  -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
+</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">78632</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"date_paid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"due_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-10-01T20:16:13.390Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"reward"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"promoter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2350</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"cust_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amber@email.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"temp_password"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_promotion_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3371</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_ref_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amber"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auth_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YhYtn86R34rfdk5j234adfsfa35EuSL2r"</span><span class="w">
+        </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"earnings_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"current_balance"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"paid_balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"cash"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"campaign"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1286</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Affiliates"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"landing_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://test.com/"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#00bcd4"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"default_webhook_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_rewards"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"auto_approve_promoters"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This call allows you to change the status of the payout. For ex. you can mark the payout as completed once the payout
+is paid.</p>
+<h3 id='http-request-21'>HTTP Request</h3>
+<p><code>PUT https://firstpromoter.com/api/v1/payouts/update</code></p>
+<h3 id='query-parameters-18'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>yes</td>
+<td>list all payouts assigned to a promoter</td>
+</tr>
+<tr>
+<td>status</td>
+<td>no</td>
+<td>the new payout status. Status can be <strong>pending</strong>,<strong>processing</strong>,<strong>completed</strong></td>
 </tr>
 </tbody></table>
 

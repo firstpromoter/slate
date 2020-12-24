@@ -344,7 +344,6 @@ You must replace <code>{apikey}</code> with your account API key.
 <p>Our tracking API allows companies to track any type of signups, sales, cancellations and refunds for any billing provider, you are not limited to our built-in integrations with Stripe, Chargebee, Recurly and Braintree.</p>
 <h2 id='tracking-leads-and-sign-ups'>Tracking leads and sign-ups</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://firstpromoter.com/api/v1/track/signup"</span>
   -d <span class="s2">"email=shelley@example.com"</span>
-  -d <span class="s2">"event_id=1001"</span>
   -d <span class="s2">"uid=cbdemo_shelley"</span>
   -d <span class="s2">"tid=3491ff2f-7803-4467-8863-15b54frt8dyy"</span>
   -H <span class="s2">"x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"</span>
@@ -395,11 +394,6 @@ You must replace <code>{apikey}</code> with your account API key.
 <th>Description</th>
 </tr>
 </thead><tbody>
-<tr>
-<td>event_id</td>
-<td>yes</td>
-<td>signup event ID. It&#39;s required to avoid generating duplicate signup events in case you mistakenly send the same API call multiple times.</td>
-</tr>
 <tr>
 <td>email</td>
 <td>yes if uid is null</td>

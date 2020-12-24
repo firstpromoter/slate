@@ -44,7 +44,6 @@ Our tracking API allows companies to track any type of signups, sales, cancellat
 ```shell
 curl -X POST "https://firstpromoter.com/api/v1/track/signup"
   -d "email=shelley@example.com"
-  -d "event_id=1001"
   -d "uid=cbdemo_shelley"
   -d "tid=3491ff2f-7803-4467-8863-15b54frt8dyy"
   -H "x-api-key: 2947d4543695e7cc7dhda3c52ebyt74eb8"
@@ -96,7 +95,6 @@ The recommended way to do this is to grab the **\_fprom_track** cookie value(whi
 
 | Parameter | Required                   | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
 | --------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| event_id  | yes                        | signup event ID. It's required to avoid generating duplicate signup events in case you mistakenly send the same API call multiple times.                                                                                                                                                                                                                                                                      |
 | email     | yes if uid is null         | email of the lead/sign-up                                                                                                                                                                                                                                                                                                                                                                                     |
 | uid       | yes if email is null       | id to match the sale with the lead if the email can be changed before the first sale. If the sales are tracked by our built-in integrations and not by our API, the "uid" must match customer ID on Stripe, Braintree, Chargebee, Recurly. Since Stripe doesn't allow pre-defined customer id, you can also pass the "uid" value as "fp_uid" in customer metadata later, when you create the customer object. |
 | tid       | required if ref_id is null | visitor tracking id. It's set when the visitor tracking script tracks the referral visit on our system. The value is found inside "\_fprom_track" cookie. Grab that value from the cookie and pass it here to match the lead with the referral.                                                                                                                                                               |

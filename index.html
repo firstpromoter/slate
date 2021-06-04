@@ -381,7 +381,7 @@ You must replace <code>{apikey}</code> with your account API key.
 
 <p>Sign-ups are tracked as leads in FirstPromoter so when a person referred by the promoter/affiliate signs up, a new lead should be added inside FirstPromoter (you can see them inside the &quot;Leads&quot; section).</p>
 
-<p>The recommended way to do this is to grab the <strong>_fprom_track</strong> cookie value(which keeps the tracking id and referral identification) on your server and send it along with the sign-up data through the <strong>tid</strong> parameter.</p>
+<p>The recommended way to do this is to grab the <strong>_fprom_tid</strong> (_fprom_track for accounts created prior to April 2021) cookie value(which keeps the tracking id and referral identification) on your server and send it along with the sign-up data through the <strong>tid</strong> parameter.</p>
 
 <p><strong><em>Alternative</em></strong>: In some special cases, you can refer sign ups directly to a promoter, by passing the referral id through <strong>ref_id</strong> parameter. Be careful using this because the referral id can be modified by the promoter by default, however you can disable that from the campaign configuration page.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -407,7 +407,7 @@ You must replace <code>{apikey}</code> with your account API key.
 <tr>
 <td>tid</td>
 <td>required if ref_id is null</td>
-<td>visitor tracking id. It&#39;s set when the visitor tracking script tracks the referral visit on our system. The value is found inside &quot;_fprom_track&quot; cookie. Grab that value from the cookie and pass it here to match the lead with the referral.</td>
+<td>visitor tracking id. It&#39;s set when the visitor tracking script tracks the referral visit on our system. The value is found inside &quot;_fprom_tid&quot; cookie. Grab that value from the cookie and pass it here to match the lead with the referral.</td>
 </tr>
 <tr>
 <td>ref_id</td>
@@ -533,7 +533,7 @@ Note: <strong>amount</strong> and <strong>mrr</strong> parameters takes the valu
 <tr>
 <td>tid</td>
 <td>no</td>
-<td>you can avoid signup tracking call by providing the <strong>_fprom_track</strong> cookie value(visitor tracking id) read on your system</td>
+<td>you can avoid signup tracking call by providing the <strong>_fprom_tid</strong> cookie value(visitor tracking id) read on your system</td>
 </tr>
 <tr>
 <td>ref_id</td>
